@@ -30,10 +30,30 @@ const refs = {
 
 refs.stopBtn.setAttribute("disabled", true);
 
+let switchColor;
+
 const randomIntegerFromInterval = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-function handleStart(e) {}
+function toggleButtons() {
+  refs.startBtn.toggleAttribute("disabled");
+  refs.stopBtn.toggleAttribute("disabled");
+}
+
+function handleStart() {
+  toggleButtons();
+  switchColor = setInterval(() => {
+    refs.body.style.backgroundColor = `${
+      colors[randomIntegerFromInterval(0, colors.length)]
+    }`;
+  }, 1000);
+}
+
+function handleStop() {
+  toggleButtons();
+  clearInterval(switchColor);
+}
 
 refs.startBtn.addEventListener("click", handleStart);
+refs.stopBtn.addEventListener("click", handleStop);
